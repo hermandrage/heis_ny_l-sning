@@ -73,8 +73,6 @@ void run_states(void){
           print_status();
         }
         set_dir_before_stopped(DIRN_STOP);
-        read_all_buttons();
-        update_all_lights();
         break;
         //////////------------------------------------------------------------------------------------
 
@@ -92,11 +90,6 @@ void run_states(void){
         }
         next_order = read_next_order();
         if (timer_is_timeout()){ //reads next_order and sets current_state
-        	/*if(get_current_floor()==read_next_order()){
-        		delete_order_from_que(0);
-        	}*/
-          printf("Timer is timeout");
-          delete_orders_in_floor(current_floor);
         	elev_set_door_open_lamp(0);
 
         	if (next_order== -1){
@@ -111,13 +104,8 @@ void run_states(void){
             	current_state=DRIVE_UP;
               print_status();
             }
-
-
-
         }
         set_dir_before_stopped(DIRN_STOP);
-        read_all_buttons();
-        update_all_lights();
         break;
         //////////------------------------------------------------------------------------------------
 
@@ -136,8 +124,6 @@ void run_states(void){
           }
         }
         set_dir_before_stopped(DIRN_UP);
-        read_all_buttons();
-        update_all_lights();
         break;
         //////////------------------------------------------------------------------------------------
 
@@ -156,8 +142,6 @@ void run_states(void){
           }
         }
         set_dir_before_stopped(DIRN_DOWN);
-        read_all_buttons();
-        update_all_lights();
         break;
 		//////////------------------------------------------------------------------------------------
 
@@ -185,18 +169,14 @@ void run_states(void){
         }
         if(read_next_order()-current_floor<0){
           set_current_state(DRIVE_DOWN);
-
         }
       }
-
     }
-        read_all_buttons();
-        update_all_lights();
-
-
         break;
 		//////////------------------------------------------------------------------------------------
   }
-  
+  read_all_buttons();
+  update_all_lights();
+
 }
 }
