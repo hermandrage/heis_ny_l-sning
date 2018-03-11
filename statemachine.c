@@ -85,6 +85,7 @@ void run_states(void){
           elev_set_motor_direction(DIRN_STOP);
         }
         set_floor_variables();
+        delete_orders_in_floor(current_floor);
         if (timer_is_timeout() == -1){//starts the timer if not yet started
           start_timer();
           elev_set_door_open_lamp(1);
@@ -94,6 +95,7 @@ void run_states(void){
         	/*if(get_current_floor()==read_next_order()){
         		delete_order_from_que(0);
         	}*/
+          printf("Timer is timeout");
           delete_orders_in_floor(current_floor);
         	elev_set_door_open_lamp(0);
 
@@ -128,13 +130,10 @@ void run_states(void){
 
         if ( temp_current_floor != -1){//is activated if in a floor
           set_floor_variables();//updates current_floor
-          int temp_order_number= check_if_should_stop(get_current_floor(), ORDER_UP);//temporary saves the number of the order that is being executed
-          while (temp_order_number != -1){//in case several orders are being executed we use a loop here, to mase sure all of them are being deleted from que
-            current_state = DOOR_OPEN;
-            delete_order_from_que(temp_order_number);
-            temp_order_number= check_if_should_stop(get_current_floor(), ORDER_UP);//updates temp_order_number in case there are remaining orders in que to be deleted, if not remaining orders temp_rder_number is set to -1 and loop will not continue
+          if(check_if_should_stop(get_current_floor(), ORDER_UP)!=-1){
+            current_state=DOOR_OPEN;
+            print_status();
           }
-          print_status();
         }
         set_dir_before_stopped(DIRN_UP);
         read_all_buttons();
@@ -151,14 +150,10 @@ void run_states(void){
         int temp_current_floor2=elev_get_floor_sensor_signal();//puts the value returned from floor sensor in a temporary variable.
         if ( temp_current_floor2 != -1){//is activated if in a floor
           set_floor_variables();//updates current_floor
-          int temp_order_number= check_if_should_stop(get_current_floor(), ORDER_DOWN);//temporary saves the number of the order that is being executed
-
-          while (temp_order_number != -1){//in case several orders are being executed we use a loop here, to mase sure all of them are being deleted from que
-            current_state = DOOR_OPEN;
-            delete_order_from_que(temp_order_number);
-            temp_order_number= check_if_should_stop(get_current_floor(), ORDER_DOWN);//updates temp_order_number in case there are remaining orders in que to be deleted, if not remaining orders temp_rder_number is set to -1 and loop will not continue
+          if(check_if_should_stop(get_current_floor(), ORDER_DOWN)!=-1){
+            current_state=DOOR_OPEN;
+            print_status();
           }
-          print_status();
         }
         set_dir_before_stopped(DIRN_DOWN);
         read_all_buttons();
@@ -202,5 +197,6 @@ void run_states(void){
         break;
 		//////////------------------------------------------------------------------------------------
   }
+  
 }
 }
