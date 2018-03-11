@@ -91,9 +91,10 @@ void run_states(void){
         }
         next_order = read_next_order();
         if (timer_is_timeout()){ //reads next_order and sets current_state
-        	if(get_current_floor()==read_next_order()){
+        	/*if(get_current_floor()==read_next_order()){
         		delete_order_from_que(0);
-        	}
+        	}*/
+          delete_orders_in_floor(current_floor);
         	elev_set_door_open_lamp(0);
 
         	if (next_order== -1){

@@ -84,6 +84,16 @@ void delete_order_from_que(int order_nr){ //Deletes order from que, "leftshifts"
   que[-1][1]=NO_ORDER;
 }
 
+void delete_orders_in_floor(int floor){//Deletes all orders in the floor from input
+  int nr_order=0;
+  while(que[nr_order][0]!=-1){
+    if(que[nr_order][0]==floor){
+      delete_order_from_que(nr_order);
+    }
+    nr_order++;
+  }
+}
+
 
 void print_que(void){ // prints que
   for (int ord_nr=0; ord_nr<nr_possible_orders; ord_nr++){

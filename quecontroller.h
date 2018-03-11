@@ -15,3 +15,4 @@ int check_for_order(int floor, order_dir dir);
 int check_if_should_stop(int floor, order_dir direcion);
 void add_order_to_que(int floor,order_dir direction);
 void delete_order_from_que(int order_nr);
+void delete_orders_in_floor(int floor);
