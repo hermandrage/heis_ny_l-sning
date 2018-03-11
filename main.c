@@ -9,7 +9,7 @@
 
 
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main(){
   if (!elev_init()) { //initiates system
       printf("Unable to initialize elevator hardware!\n");
@@ -19,4 +19,3 @@ int main(){
   printf("Starting whileloop");
   run_states();//initiates statemachine
 }
-
